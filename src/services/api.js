@@ -93,6 +93,16 @@ export const projectsAPI = {
         const response = await api.post('/projects', data);
         return response.data;
     },
+
+    update: async (id, data) => {
+        const response = await api.patch(`/projects/${id}`, data);
+        return response.data;
+    },
+
+    delete: async (id) => {
+        const response = await api.delete(`/projects/${id}`);
+        return response.data;
+    },
 };
 
 // Files API
@@ -100,7 +110,9 @@ export const filesAPI = {
     upload: async (projectId, file, description = '') => {
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('description', description);
+        if (description) {
+            formData.append('description', description);
+        }
 
         const response = await api.post(`/files/${projectId}/upload`, formData, {
             headers: {
@@ -112,6 +124,11 @@ export const filesAPI = {
 
     list: async (projectId) => {
         const response = await api.get(`/files/${projectId}/files`);
+        return response.data;
+    },
+
+    delete: async (fileId) => {
+        const response = await api.delete(`/files/${fileId}`);
         return response.data;
     },
 };

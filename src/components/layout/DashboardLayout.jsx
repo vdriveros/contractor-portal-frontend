@@ -1,5 +1,5 @@
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 export default function DashboardLayout({ children }) {
     const { user, logout } = useAuth();
@@ -9,6 +9,11 @@ export default function DashboardLayout({ children }) {
         logout();
         navigate('/login');
     };
+
+    const navLinkClass = ({ isActive }) =>
+        isActive
+            ? "text-accent border-b-2 border-accent px-1 pt-1 text-sm font-semibold uppercase tracking-wide"
+            : "text-white hover:text-accent hover:border-accent border-b-2 border-transparent px-1 pt-1 text-sm font-semibold uppercase tracking-wide transition-colors";
 
     return (
         <div className="min-h-screen bg-neutral-50">
@@ -33,11 +38,11 @@ export default function DashboardLayout({ children }) {
 
                             {/* Navigation Links */}
                             <div className="hidden md:ml-10 md:flex md:space-x-8">
-                                <Link to="/dashboard" className="text-accent border-b-2 border-accent px-1 pt-1 text-sm font-semibold uppercase tracking-wide">Dashboard</Link>
+                                <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
                                 {user?.role === 'contractor' && (
                                     <>
-                                        <Link to="/clients" className="text-white hover:text-accent hover:border-accent border-b-2 border-transparent px-1 pt-1 text-sm font-semibold uppercase tracking-wide transition-colors">Clients</Link>
-                                        <Link to="/projects" className="text-white hover:text-accent hover:border-accent border-b-2 border-transparent px-1 pt-1 text-sm font-semibold uppercase tracking-wide transition-colors">Projects</Link>
+                                        <NavLink to="/clients" className={navLinkClass}>Clients</NavLink>
+                                        <NavLink to="/projects" className={navLinkClass}>Projects</NavLink>
                                     </>
                                 )}
                             </div>

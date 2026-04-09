@@ -9,6 +9,11 @@ import ClientList from './pages/clients/ClientList';
 import ClientCreate from './pages/clients/ClientCreate';
 import ClientEdit from './pages/clients/ClientEdit';
 
+// Projects
+import ProjectList from './pages/projects/ProjectList.jsx'
+import ProjectCreate from './pages/projects/ProjectCreate.jsx'
+import ProjectEdit from './pages/projects/ProjectEdit.jsx'
+
 function App() {
   return (
     <AuthProvider>
@@ -43,6 +48,27 @@ function App() {
             </ProtectedRoute>
           }
           />
+
+          {/* Project Routes */}
+          <Route path="/projects" element={
+            <ProtectedRoute>
+              <ProjectList />
+            </ProtectedRoute>
+          }
+          />
+          <Route path="/projects/create" element={
+            <ProtectedRoute>
+              <ProjectCreate />
+            </ProtectedRoute>
+          }
+          />
+          <Route path="/projects/:id/edit" element={
+            <ProtectedRoute>
+              <ProjectEdit />
+            </ProtectedRoute>
+          }
+          />
+
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </Router>
