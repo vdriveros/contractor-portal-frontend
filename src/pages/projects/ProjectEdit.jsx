@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import { projectsAPI, filesAPI, clientsAPI } from '../../services/api';
+import Toast from '../../components/common/Toast';
 
 export default function ProjectEdit() {
     const { id } = useParams();
@@ -12,6 +13,13 @@ export default function ProjectEdit() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [clients, setClients] = useState([]);
     const [project, setProject] = useState(null);
+    const [showSuccess, setShowSuccessInternal] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const setShowSuccess = (show, message = '') => {
+        if (show) setSuccessMessage(message);
+        setShowSuccessInternal(show);
+    };
 
     // Files state
     const [files, setFiles] = useState([]);
@@ -75,7 +83,8 @@ export default function ProjectEdit() {
             };
 
             await projectsAPI.update(id, projectData);
-            navigate('/projects');
+            setShowSuccess(true, 'Registro modificado correctamente');
+            //navigate('/projects');
         } catch (err) {
             setError(err.response?.data?.detail || 'Error al actualizar proyecto');
             console.error(err);
@@ -103,6 +112,7 @@ export default function ProjectEdit() {
                 setUploadProgress({ ...newProgress });
 
                 await filesAPI.upload(id, file, '');
+                setShowSuccess(true, 'Archivo subido correctamente');
 
                 newProgress[file.name] = 100;
                 setUploadProgress({ ...newProgress });
@@ -160,8 +170,12 @@ export default function ProjectEdit() {
     };
 
     // Filter only image files
-    const imageFiles = files.filter(f => f.file_type === 'image');
-    const documentFiles = files.filter(f => f.file_type === 'document');
+    const imageFiles = files
+        .filter(f => f.file_type === 'image')
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const documentFiles = files
+        .filter(f => f.file_type === 'document')
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
     if (loading) {
         return (
@@ -422,7 +436,7 @@ export default function ProjectEdit() {
                                         </svg>
                                     </button>
 
-                                    <p className="mt-2 text-xs text-neutral-600 truncate">{file.file_name}</p>
+                                    <p className="mt-2 text-xs text-neutral-600 truncate">{new Date(file.created_at).toLocaleDateString()}</p>
                                 </div>
                             ))}
                         </div>
@@ -527,6 +541,12 @@ export default function ProjectEdit() {
                     </div>
                 )}
             </div>
+            {showSuccess && (
+                <Toast
+                    message={successMessage}
+                    onClose={() => setShowSuccess(false)}
+                />
+            )}
         </DashboardLayout>
     );
 }
