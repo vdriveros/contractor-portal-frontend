@@ -16,8 +16,8 @@ import ProjectEdit from './pages/projects/ProjectEdit.jsx'
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
 
           <Route path="/login" element={<Login />} />
@@ -71,8 +71,8 @@ function App() {
 
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

@@ -221,16 +221,21 @@ export default function ProjectCreate() {
                                 className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
                             >
                                 Fecha de Inicio
-                                <span className="text-neutral-400 normal-case ml-2 text-xs">
-                                    (Opcional)
-                                </span>
+                                <span className="text-red-500 ml-1">*</span>
                             </label>
                             <input
                                 id="start_date"
                                 type="date"
                                 className="input-field"
-                                {...register('start_date')}
+                                {...register('start_date', {
+                                    required: 'La fecha de inicio es requerida',
+                                })}
                             />
+                            {errors.start_date && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.start_date.message}
+                                </p>
+                            )}
                         </div>
 
                         <div>
@@ -239,16 +244,21 @@ export default function ProjectCreate() {
                                 className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
                             >
                                 Fecha de Finalización
-                                <span className="text-neutral-400 normal-case ml-2 text-xs">
-                                    (Opcional)
-                                </span>
+                                <span className="text-red-500 ml-1">*</span>
                             </label>
                             <input
                                 id="end_date"
                                 type="date"
                                 className="input-field"
-                                {...register('end_date')}
+                                {...register('end_date', {
+                                    required: 'La fecha de finalización es requerida',
+                                })}
                             />
+                            {errors.end_date && (
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.end_date.message}
+                                </p>
+                            )}
                         </div>
                     </div>
 

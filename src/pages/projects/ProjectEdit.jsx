@@ -280,7 +280,7 @@ export default function ProjectEdit() {
                                 </label>
                                 <select id="status" className="input-field" {...register('status')}>
                                     <option value="active">Activo</option>
-                                    <option value="completed">Completado</option>
+                                    <option value="completed">Terminado</option>
                                     <option value="on_hold">En Pausa</option>
                                 </select>
                             </div>
