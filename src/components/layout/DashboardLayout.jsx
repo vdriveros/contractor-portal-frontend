@@ -40,7 +40,10 @@ export default function DashboardLayout({ children }) {
 
                             {/* Navigation Links */}
                             <div className="hidden md:ml-10 md:flex md:space-x-8">
-                                <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
+                                <NavLink to={user?.role === 'client' ? '/client/dashboard' : '/dashboard'}
+                                    className={navLinkClass}>
+                                    Dashboard
+                                </NavLink>
                                 {user?.role === 'contractor' && (
                                     <>
                                         <NavLink to="/clients" className={navLinkClass}>Clients</NavLink>

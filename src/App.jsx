@@ -5,15 +5,30 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 
-// Clients
+//Client pages
+import ClientDashboard from './pages/client/ClientDashboard';
+import ClientProjectDetail from './pages/client/ClientProjectDetail';
+
+// Clients routes
 import ClientList from './pages/clients/ClientList';
 import ClientCreate from './pages/clients/ClientCreate';
 import ClientEdit from './pages/clients/ClientEdit';
 
-// Projects
+// Projects routes
 import ProjectList from './pages/projects/ProjectList.jsx'
 import ProjectCreate from './pages/projects/ProjectCreate.jsx'
 import ProjectEdit from './pages/projects/ProjectEdit.jsx'
+
+// Component to redirect based on role
+function RoleBasedRedirect() {
+  const { user } = useAuth();
+
+  if (user?.role === 'client') {
+    return <Navigate to="/client/dashboard" replace />;
+  }
+
+  return <Navigate to="/dashboard" replace />;
+}
 
 function App() {
   return (
@@ -21,14 +36,18 @@ function App() {
       <AuthProvider>
         <Routes>
 
+          {/* Login */}
           <Route path="/login" element={<Login />} />
 
+          {/* Dashboard */}
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
           />
+
+          {/* Profile */}
           <Route path="/profile" element={
             <ProtectedRoute>
               <Profile />
@@ -37,6 +56,20 @@ function App() {
           />
 
           {/* Client Routes */}
+          <Route path="/client/dashboard" element={
+            <ProtectedRoute allowedRoles={['client']}>
+              <ClientDashboard />
+            </ProtectedRoute>
+          }
+          />
+          <Route path="/client/projects/:id" element={
+            <ProtectedRoute allowedRoles={['client']}>
+              <ClientProjectDetail />
+            </ProtectedRoute>
+          }
+          />
+
+          {/* Contractor Client Routes */}
           <Route path="/clients" element={
             <ProtectedRoute>
               <ClientList />
@@ -56,7 +89,7 @@ function App() {
           }
           />
 
-          {/* Project Routes */}
+          {/* Contractor Project Routes */}
           <Route path="/projects" element={
             <ProtectedRoute>
               <ProjectList />
@@ -76,7 +109,13 @@ function App() {
           }
           />
 
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Root redirect */}
+          <Route path="/" element={
+            <ProtectedRoute>
+              <RoleBasedRedirect />
+            </ProtectedRoute>
+          } />
+
         </Routes>
       </AuthProvider>
     </Router>

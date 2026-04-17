@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import { clientsAPI } from '../../services/api';
+import { clientsAPI, authAPI } from '../../services/api';
 
 export default function ClientCreate() {
     const navigate = useNavigate();
@@ -17,8 +17,18 @@ export default function ClientCreate() {
 
     const onSubmit = async (data) => {
         try {
+            const userData = {
+                "email": data.contact_email,
+                "username": data.contact_email,
+                "full_name": data.contact_name,
+                "role": "client",
+                "password": data.contact_phone
+            }
+
             setIsSubmitting(true);
             setError('');
+            let user = await authAPI.register(userData);
+            data.user_id = user.id;
             await clientsAPI.create(data);
             navigate('/clients');
         } catch (err) {
@@ -151,17 +161,22 @@ export default function ClientCreate() {
                             className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
                         >
                             Teléfono
-                            <span className="text-neutral-400 normal-case ml-2 text-xs">
-                                (Opcional)
-                            </span>
+                            <span className="text-red-500 ml-1">*</span>
                         </label>
                         <input
                             id="contact_phone"
                             type="tel"
                             className="input-field"
                             placeholder="(0981) 123-456"
-                            {...register('contact_phone')}
+                            {...register('contact_phone', {
+                                required: 'El teléfono es requerido',
+                            })}
                         />
+                        {errors.contact_phone && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {errors.contact_phone.message}
+                            </p>
+                        )}
                     </div>
 
                     {/* Address */}

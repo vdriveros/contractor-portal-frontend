@@ -193,17 +193,22 @@ export default function ClientEdit() {
                             className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
                         >
                             Teléfono
-                            <span className="text-neutral-400 normal-case ml-2 text-xs">
-                                (Opcional)
-                            </span>
+                            <span className="text-red-500 ml-1">*</span>
                         </label>
                         <input
                             id="contact_phone"
                             type="tel"
                             className="input-field"
                             placeholder="(0981) 123-456"
-                            {...register('contact_phone')}
+                            {...register('contact_phone', {
+                                required: 'El teléfono es requerido',
+                            })}
                         />
+                        {errors.contact_phone && (
+                            <p className="mt-1 text-sm text-red-600">
+                                {errors.contact_phone.message}
+                            </p>
+                        )}
                     </div>
 
                     {/* Address */}
@@ -274,8 +279,8 @@ export default function ClientEdit() {
             </div>
 
             {showSuccess && (
-                <Toast 
-                    message="Registro modificado correctamente" 
+                <Toast
+                    message="Registro modificado correctamente"
                     onClose={() => setShowSuccess(false)}
                 />
             )}

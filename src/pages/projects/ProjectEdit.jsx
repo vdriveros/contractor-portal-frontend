@@ -62,6 +62,10 @@ export default function ProjectEdit() {
             setValue('status', projectData.status);
             setValue('start_date', projectData.start_date?.split('T')[0] || '');
             setValue('end_date', projectData.end_date?.split('T')[0] || '');
+            setValue('advisor', projectData.advisor);
+            setValue('advisor_email', projectData.advisor_email);
+            setValue('advisor_phone', projectData.advisor_phone);
+            setValue('project_manager', projectData.project_manager);
 
             setError('');
         } catch (err) {
@@ -175,6 +179,9 @@ export default function ProjectEdit() {
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
     const documentFiles = files
         .filter(f => f.file_type === 'document')
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    const videoFiles = files
+        .filter(f => f.file_type === 'video')
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
     if (loading) {
@@ -301,6 +308,38 @@ export default function ProjectEdit() {
                                 </div>
                             </div>
 
+                            {/* Advisor */}
+                            <div>
+                                <label htmlFor="advisor" className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide">
+                                    Asesor
+                                </label>
+                                <input id="advisor" type="text" className="input-field" {...register('advisor')} />
+                            </div>
+
+                            {/* Advisor Email */}
+                            <div>
+                                <label htmlFor="advisor_email" className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide">
+                                    Correo de Contacto
+                                </label>
+                                <input id="advisor_email" type="text" className="input-field" {...register('advisor_email')} />
+                            </div>
+
+                            {/* Advisor Phone */}
+                            <div>
+                                <label htmlFor="advisor_phone" className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide">
+                                    Teléfono de Contacto
+                                </label>
+                                <input id="advisor_phone" type="text" className="input-field" {...register('advisor_phone')} />
+                            </div>
+
+                            {/* Project Manager */}
+                            <div>
+                                <label htmlFor="project_manager" className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide">
+                                    Responsable de obra
+                                </label>
+                                <input id="project_manager" type="text" className="input-field" {...register('project_manager')} />
+                            </div>
+
                             {/* Actions */}
                             <div className="flex gap-3 pt-4 border-t border-neutral-200">
                                 <button type="button" onClick={() => navigate('/projects')} className="flex-1 btn-secondary" disabled={isSubmitting}>
@@ -333,13 +372,13 @@ export default function ProjectEdit() {
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide">
-                                        Seleccionar Imágenes
+                                        Seleccionar Imágenes, Videos, o PDFs
                                     </label>
                                     <input
                                         id="file-upload"
                                         type="file"
                                         multiple
-                                        accept="image/*,.pdf"
+                                        accept="image/*,.pdf,.mp4"
                                         onChange={handleFileSelect}
                                         className="block w-full text-sm text-neutral-600
                       file:mr-4 file:py-2 file:px-4
@@ -437,6 +476,59 @@ export default function ProjectEdit() {
                                     </button>
 
                                     <p className="mt-2 text-xs text-neutral-600 truncate">{new Date(file.created_at).toLocaleDateString()}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Videos Gallery */}
+                {videoFiles.length > 0 && (
+                    <div className="card">
+                        <h2 className="text-xl font-bold text-primary uppercase tracking-wide border-b-2 border-accent pb-2 inline-block mb-6">
+                            Videos ({videoFiles.length})
+                        </h2>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {videoFiles.map((file) => (
+                                <div key={file.id} className="relative group">
+                                    <div className="bg-neutral-100 rounded-lg overflow-hidden border-2 border-neutral-200">
+                                        <video
+                                            controls
+                                            className="w-full aspect-video object-cover"
+                                            preload="metadata"
+                                        >
+                                            <source src={file.presigned_url} type="video/mp4" />
+                                            Tu navegador no soporta el tag de video.
+                                        </video>
+                                    </div>
+
+                                    {/* Delete button */}
+                                    <button
+                                        onClick={() => handleDeleteFile(file.id)}
+                                        className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                                        title="Eliminar video"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+
+                                    <div className="mt-2">
+                                        <p className="text-sm font-semibold text-neutral-900 truncate">
+                                            {file.file_name}
+                                        </p>
+                                        <div className="flex items-center justify-between text-xs text-neutral-500 mt-1">
+                                            <span>
+                                                {new Date(file.created_at).toLocaleDateString()}
+                                            </span>
+                                            {file.file_size && (
+                                                <span>
+                                                    {(file.file_size / (1024 * 1024)).toFixed(1)} MB
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>

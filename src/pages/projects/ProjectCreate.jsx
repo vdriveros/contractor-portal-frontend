@@ -137,7 +137,7 @@ export default function ProjectCreate() {
                                 <option value="">Selecciona un cliente</option>
                                 {clients.map((client) => (
                                     <option key={client.id} value={client.id}>
-                                        {client.company_name || client.contact_name}
+                                        {client.company_name + ' - ' + client.contact_name}
                                     </option>
                                 ))}
                             </select>
@@ -260,6 +260,86 @@ export default function ProjectCreate() {
                                 </p>
                             )}
                         </div>
+                    </div>
+
+                    {/* Advisor */}
+                    <div>
+                        <label
+                            htmlFor="advisor"
+                            className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
+                        >
+                            Asesor
+                            <span className="text-neutral-400 normal-case ml-2 text-xs">
+                                (Opcional)
+                            </span>
+                        </label>
+                        <input
+                            id="advisor"
+                            type="text"
+                            className="input-field"
+                            placeholder="Ej: Juan Pérez"
+                            {...register('advisor')}
+                        />
+                    </div>
+
+                    {/* Advisor Email */}
+                    <div>
+                        <label
+                            htmlFor="advisor_email"
+                            className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
+                        >
+                            Correo de Contacto
+                            <span className="text-neutral-400 normal-case ml-2 text-xs">
+                                (Opcional)
+                            </span>
+                        </label>
+                        <input
+                            id="advisor_email"
+                            type="text"
+                            className="input-field"
+                            placeholder="Ej: ejemplo@email.com"
+                            {...register('advisor_email')}
+                        />
+                    </div>
+
+                    {/* Advisor Phone */}
+                    <div>
+                        <label
+                            htmlFor="advisor_phone"
+                            className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
+                        >
+                            Teléfono de Contacto
+                            <span className="text-neutral-400 normal-case ml-2 text-xs">
+                                (Opcional)
+                            </span>
+                        </label>
+                        <input
+                            id="advisor_phone"
+                            type="text"
+                            className="input-field"
+                            placeholder="Ej: 1234567890"
+                            {...register('advisor_phone')}
+                        />
+                    </div>
+
+                    {/* Project Manager */}
+                    <div>
+                        <label
+                            htmlFor="project_manager"
+                            className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
+                        >
+                            Responsable de obra
+                            <span className="text-neutral-400 normal-case ml-2 text-xs">
+                                (Opcional)
+                            </span>
+                        </label>
+                        <input
+                            id="project_manager"
+                            type="text"
+                            className="input-field"
+                            placeholder="Ej: Juan Pérez"
+                            {...register('project_manager')}
+                        />
                     </div>
 
                     {/* Actions */}
