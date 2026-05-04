@@ -31,30 +31,31 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-primary-dark via-primary to-primary-light flex items-center justify-center p-4">
-            <div className="w-full max-w-md">
-                {/* Logo/Brand Section */}
-                <div className="text-center">
-                    <div className="inline-block bg-white p-6 rounded-2xl shadow-2xl mb-6">
+        <main className="relative flex min-h-screen items-center justify-center bg-[#070707] font-['Roboto',_'Arial',_sans-serif] text-white px-6 py-10 overflow-hidden sm:px-8 lg:px-12">
+            {/* Fondos base */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,237,0,.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,.05),transparent_30%)]"></div>
+            <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-[#FFED00]/10 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
+
+            <div className="relative z-10 w-full max-w-[420px]">
+                <div className="bg-white text-black p-8 sm:p-10 shadow-[0_20px_60px_rgba(0,0,0,.28)]">
+                    {/* Logo Header */}
+                    <div className="mb-10 flex justify-center">
                         <img
                             src="https://www.hormetal.com/wp-content/uploads/2025/03/logo.png"
-                            alt="Hormetal Logo"
-                            className="h-12 w-auto"
+                            alt="HORMETAL"
+                            className="h-12 w-auto sm:h-14"
                         />
                     </div>
-                    <h1 className="text-3xl font-bold text-white mb-2 uppercase tracking-wide">
-                        Portal de Proyectos
-                    </h1>
-                    <p className="text-secondary text-sm">
-                        Seguimiento de proyectos y actualizaciones
-                    </p>
-                </div>
 
-                {/* Login Card */}
-                <div className="bg-white rounded-2xl shadow-2xl p-8">
-                    <h2 className="text-2xl font-bold text-primary mb-6 uppercase tracking-wide">
-                        Iniciar Sesión
-                    </h2>
+                    <div className="mb-6">
+                        <h2 className="mt-1 font-['Oswald',_'Arial_Narrow',_sans-serif] text-4xl uppercase leading-none text-black">
+                            PORTAL DE CLIENTES
+                        </h2>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40 pt-4">
+                            INICIAR SESIÓN
+                        </p>
+                    </div>
 
                     {error && (
                         <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded">
@@ -63,19 +64,18 @@ export default function Login() {
                     )}
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                        {/* Username Field */}
                         <div>
                             <label
                                 htmlFor="username"
-                                className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
+                                className="mb-2 block text-[11px] font-bold uppercase tracking-[0.15em] text-black/60"
                             >
-                                Usuario
+                                Usuario o correo
                             </label>
                             <input
                                 id="username"
                                 type="text"
-                                className="input-field"
-                                placeholder="Ingrese su usuario"
+                                placeholder="cliente@empresa.com"
+                                className="w-full rounded-xl border border-black/10 bg-[#FAFAFA] px-4 py-3.5 text-sm text-black outline-none transition focus:border-[#FFED00] focus:ring-4 focus:ring-[#FFED00]/20"
                                 {...register('username', {
                                     required: 'Usuario es requerido',
                                 })}
@@ -87,19 +87,18 @@ export default function Login() {
                             )}
                         </div>
 
-                        {/* Password Field */}
                         <div>
                             <label
                                 htmlFor="password"
-                                className="block text-sm font-semibold text-neutral-700 mb-2 uppercase tracking-wide"
+                                className="mb-2 block text-[11px] font-bold uppercase tracking-[0.15em] text-black/60"
                             >
                                 Contraseña
                             </label>
                             <input
                                 id="password"
                                 type="password"
-                                className="input-field"
-                                placeholder="Ingrese su contraseña"
+                                placeholder="••••••••"
+                                className="w-full rounded-xl border border-black/10 bg-[#FAFAFA] px-4 py-3.5 text-sm text-black outline-none transition focus:border-[#FFED00] focus:ring-4 focus:ring-[#FFED00]/20"
                                 {...register('password', {
                                     required: 'Contraseña es requerida',
                                 })}
@@ -111,36 +110,15 @@ export default function Login() {
                             )}
                         </div>
 
-                        {/* Remember Me & Forgot Password */}
-                        <div className="flex items-center justify-between">
-                            <label className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    className="rounded border-neutral-300 text-accent focus:ring-accent"
-                                />
-                                <span className="ml-2 text-sm text-neutral-600">
-                                    Recordame
-                                </span>
-                            </label>
-
-                            <a
-                                href="#"
-                                className="ext-sm text-primary hover:text-accent font-medium"
-                            >
-                                ¿Olvidaste tu contraseña?
-                            </a>
-                        </div>
-
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full btn-accent"
+                            className="mt-8 flex w-full justify-center rounded-xl bg-[#FFED00] px-5 py-4 font-['Oswald',_'Arial_Narrow',_sans-serif] text-lg font-bold uppercase tracking-wide text-black transition hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
                         >
                             {isLoading ? (
                                 <span className="flex items-center justify-center">
                                     <svg
-                                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -162,30 +140,25 @@ export default function Login() {
                                     Iniciando sesión...
                                 </span>
                             ) : (
-                                'Iniciar Sesión'
+                                'Acceder al portal'
                             )}
                         </button>
-                    </form>
 
-                    {/* Register Link */}
-                    <div className="mt-6 text-center">
-                        <p className="text-sm text-neutral-600">
-                            ¿No tienes una cuenta?{' '}
-                            <a
-                                href="/register"
-                                className="font-semibold text-primary hover:text-accent uppercase tracking-wide"
-                            >
-                                Contacta a tu contratista
+                        <div className="mt-5">
+                            <a href="#" className="text-xs text-black/50 transition hover:text-black">
+                                ¿Olvidaste tu contraseña?
                             </a>
-                        </p>
-                    </div>
+                        </div>
+                    </form>
                 </div>
+            </div>
 
-                {/* Footer */}
-                <p className="mt-8 text-center text-sm text-secondary">
-                    © 2026 Hormetal. Todos los derechos reservados.
+            {/* Footer */}
+            <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center justify-center space-y-1 text-center pointer-events-none">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-white/40">
+                    {new Date().getFullYear()} © HORMETAL. TODOS LOS DERECHOS RESERVADOS.
                 </p>
             </div>
-        </div>
+        </main>
     );
 }

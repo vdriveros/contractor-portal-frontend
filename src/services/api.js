@@ -51,7 +51,7 @@ export const authAPI = {
 // Clients API
 export const clientsAPI = {
     list: async () => {
-        const response = await api.get('/clients');
+        const response = await api.get('/clients/');
         return response.data;
     },
 
@@ -61,7 +61,7 @@ export const clientsAPI = {
     },
 
     create: async (data) => {
-        const response = await api.post('/clients', data);
+        const response = await api.post('/clients/', data);
         return response.data;
     },
 
@@ -80,7 +80,7 @@ export const clientsAPI = {
 export const projectsAPI = {
     list: async (clientId = null) => {
         const params = clientId ? { client_id: clientId } : {};
-        const response = await api.get('/projects', { params });
+        const response = await api.get('/projects/', { params });
         return response.data;
     },
 
@@ -90,7 +90,7 @@ export const projectsAPI = {
     },
 
     create: async (data) => {
-        const response = await api.post('/projects', data);
+        const response = await api.post('/projects/', data);
         return response.data;
     },
 
@@ -108,7 +108,7 @@ export const projectsAPI = {
 // Users API
 export const usersAPI = {
     list: async () => {
-        const response = await api.get('/users');
+        const response = await api.get('/users/');
         return response.data;
     },
 
@@ -118,7 +118,7 @@ export const usersAPI = {
     },
 
     create: async (data) => {
-        const response = await api.post('/users', data);
+        const response = await api.post('/users/', data);
         return response.data;
     },
 
