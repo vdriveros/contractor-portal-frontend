@@ -105,6 +105,43 @@ export const projectsAPI = {
     },
 };
 
+// Users API
+export const usersAPI = {
+    list: async () => {
+        const response = await api.get('/users');
+        return response.data;
+    },
+
+    get: async (id) => {
+        const response = await api.get(`/users/${id}`);
+        return response.data;
+    },
+
+    create: async (data) => {
+        const response = await api.post('/users', data);
+        return response.data;
+    },
+
+    update: async (id, data) => {
+        const response = await api.patch(`/users/${id}`, data);
+        return response.data;
+    },
+
+    delete: async (id) => {
+        const response = await api.delete(`/users/${id}`);
+        return response.data;
+    },
+
+    updatePassword: async (userId, data) => {
+        const response = await api.put(`/users/${userId}/password`, null, {
+            params: {
+                new_password: data.new_password
+            }
+        });
+        return response.data;
+    },
+};
+
 // Files API
 export const filesAPI = {
     upload: async (projectId, file, description = '') => {

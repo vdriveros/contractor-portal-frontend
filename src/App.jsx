@@ -19,6 +19,11 @@ import ProjectList from './pages/projects/ProjectList.jsx'
 import ProjectCreate from './pages/projects/ProjectCreate.jsx'
 import ProjectEdit from './pages/projects/ProjectEdit.jsx'
 
+// Users routes
+import UserList from './pages/users/UserList.jsx'
+import UserCreate from './pages/users/UserCreate.jsx'
+import UserEdit from './pages/users/UserEdit.jsx'
+
 // Component to redirect based on role
 function RoleBasedRedirect() {
   const { user } = useAuth();
@@ -105,6 +110,26 @@ function App() {
           <Route path="/projects/:id/edit" element={
             <ProtectedRoute>
               <ProjectEdit />
+            </ProtectedRoute>
+          }
+          />
+
+          {/* Contractor User Routes */}
+          <Route path="/users" element={
+            <ProtectedRoute allowedRoles={['contractor']}>
+              <UserList />
+            </ProtectedRoute>
+          }
+          />
+          <Route path="/users/create" element={
+            <ProtectedRoute allowedRoles={['contractor']}>
+              <UserCreate />
+            </ProtectedRoute>
+          }
+          />
+          <Route path="/users/:id/edit" element={
+            <ProtectedRoute allowedRoles={['contractor']}>
+              <UserEdit />
             </ProtectedRoute>
           }
           />

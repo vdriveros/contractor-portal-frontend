@@ -48,6 +48,7 @@ export default function DashboardLayout({ children }) {
                                     <>
                                         <NavLink to="/clients" className={navLinkClass}>Clients</NavLink>
                                         <NavLink to="/projects" className={navLinkClass}>Projects</NavLink>
+                                        <NavLink to="/users" className={navLinkClass}>Users</NavLink>
                                     </>
                                 )}
                             </div>

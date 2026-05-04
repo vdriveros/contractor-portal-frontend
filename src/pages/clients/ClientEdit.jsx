@@ -78,7 +78,7 @@ export default function ClientEdit() {
                 <div className="mb-6">
                     <button
                         onClick={() => navigate('/clients')}
-                        className="flex items-center gap-2 text-primary hover:text-accent mb-4 font-semibold"
+                        className="flex items-center gap-2 text-primary mb-4 font-semibold hover:text-accent-dark"
                     >
                         <svg
                             className="w-5 h-5"
