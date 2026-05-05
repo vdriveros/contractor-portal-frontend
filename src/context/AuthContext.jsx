@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('token', data.access_token);
             const userData = await authAPI.getCurrentUser();
             setUser(userData);
-            return { success: true };
+            return { success: true, user: userData };
         } catch (error) {
             return {
                 success: false,

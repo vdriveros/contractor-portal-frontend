@@ -22,7 +22,11 @@ export default function Login() {
         const result = await login(data.username, data.password);
 
         if (result.success) {
-            navigate('/dashboard');
+            if (result.user?.role === 'client') {
+                navigate('/client/dashboard');
+            } else {
+                navigate('/dashboard');
+            }
         } else {
             setError(result.error);
         }
