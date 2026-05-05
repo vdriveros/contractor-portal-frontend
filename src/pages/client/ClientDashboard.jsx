@@ -313,7 +313,7 @@ export default function ClientDashboard() {
 
                                     <div className="p-4">
                                         <button
-                                            onClick={() => navigate(`/client/projects/${selectedProject.id}/month/${m.year}/${m.month + 1}`)}
+                                            onClick={() => navigate(`/client/projects/${selectedProject.id}/${m.year}/${m.month + 1}`)}
                                             className="inline-flex w-full items-center justify-center rounded-xl bg-hormetal-yellow px-4 py-3 font-heading text-lg uppercase tracking-wide text-black transition hover:-translate-y-0.5"
                                         >
                                             Ver avance

@@ -67,7 +67,7 @@ function App() {
             </ProtectedRoute>
           }
           />
-          <Route path="/client/projects/:id" element={
+          <Route path="/client/projects/:id/:year/:month" element={
             <ProtectedRoute allowedRoles={['client']}>
               <ClientProjectDetail />
             </ProtectedRoute>
