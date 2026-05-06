@@ -261,7 +261,7 @@ export default function ProjectList() {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-600">
-                                                {project.description}
+                                                {project.description?.substring(0, 50)}...
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-neutral-600">
                                                 {project.client.company_name} - {project.client.contact_name}
